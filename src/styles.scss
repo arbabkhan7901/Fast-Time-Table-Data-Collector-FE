@@ -1,0 +1,185 @@
+/* You can add global styles to this file, and also import other style files */
+@import "@coreui/coreui/scss/coreui";
+@import "@coreui/chartjs/scss/coreui-chartjs";
+
+.chartjs-tooltip-body-item>td {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    font-size: smaller;
+}
+
+.callout-info {
+    background-color: $light-50 !important;
+
+    @at-root .dark-theme & {
+        background-color: rgba(255, 255, 255, .1) !important;
+    }
+}
+
+.example {
+    &:not(:first-child) {
+        margin-top: 1.5rem;
+    }
+
+    .tab-content {
+        background-color: $light-50 !important;
+
+        @at-root .dark-theme & {
+            background-color: rgba(255, 255, 255, .1) !important;
+        }
+    }
+
+    code[class*="language-"],
+    pre[class*="language-"] {
+        font-size: .875rem !important;
+    }
+
+    :not(pre)>code[class*="language-"],
+    pre[class*="language-"] {
+        background: transparent;
+    }
+
+    &+p,
+    &+h2,
+    &+h3,
+    &+h4,
+    &+h5,
+    &+h6 {
+        margin-top: 1.5rem;
+    }
+
+    // Components examples
+    .preview,
+    .preview .col {
+        +p {
+            margin-top: 2rem;
+        }
+
+        >.form-control {
+            +.form-control {
+                margin-top: .5rem;
+            }
+        }
+
+        >.nav+.nav,
+        >.alert+.alert,
+        >.navbar+.navbar,
+        >.progress+.progress {
+            margin-top: 1rem;
+        }
+
+        >.dropdown-menu {
+            position: static;
+            display: block;
+        }
+
+        > :last-child {
+            margin-bottom: 0;
+        }
+
+        // Images
+        >svg+svg,
+        >img+img {
+            margin-left: .5rem;
+        }
+
+        // Buttons
+        >.btn,
+        >.btn-group {
+            margin: .25rem .125rem;
+        }
+
+        >.btn-toolbar+.btn-toolbar {
+            margin-top: .5rem;
+        }
+
+        // List groups
+        >.list-group {
+            max-width: 400px;
+        }
+
+        >[class*="list-group-horizontal"] {
+            max-width: 100%;
+        }
+
+        // Navbars
+        .fixed-top,
+        .sticky-top {
+            position: static;
+            margin: -1rem -1rem 1rem;
+        }
+
+        .fixed-bottom {
+            position: static;
+            margin: 1rem -1rem -1rem;
+        }
+
+        @include media-breakpoint-up(sm) {
+
+            .fixed-top,
+            .sticky-top {
+                margin: -1.5rem -1.5rem 1rem;
+            }
+
+            .fixed-bottom {
+                margin: 1rem -1.5rem -1.5rem;
+            }
+        }
+
+        // Pagination
+        .pagination {
+            margin-top: .5rem;
+            margin-bottom: .5rem;
+        }
+    }
+}
+
+.form-floating>.form-select {
+    padding-top: 1.625rem !important;
+    padding-bottom: 0.625rem !important;
+}
+
+.wrapper {
+    width: 100%;
+    @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
+    @include ltr-rtl("padding-right", var(--cui-sidebar-occupy-end, 0));
+    will-change: auto;
+    @include transition(padding .15s);
+}
+
+// scrollbar tinkering
+
+@supports (scrollbar-width: thin) {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #444 transparent;
+    }
+}
+
+::-webkit-scrollbar {
+    width: .9em;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--cui-body-bg, #fff);
+    border-radius: 100vw;
+    margin-block: .2em;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #999;
+    border: .2em solid var(--cui-body-bg, #fff);
+    border-radius: 100vw;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
+
+.dark-theme::-webkit-scrollbar-thumb {
+    background: #444;
+}
+
+.dark-theme::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}

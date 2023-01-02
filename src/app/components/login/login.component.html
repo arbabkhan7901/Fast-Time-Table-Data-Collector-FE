@@ -1,0 +1,54 @@
+<!-- <form>
+    <h1>Fast Time Table Data Collector Login!</h1>
+    <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" required #username>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required #password>
+
+        <button type="button" (click)="login(username.value, password.value)">Login</button>
+        <div style="color: red;">{{error}}</div>
+    </div>
+</form> -->
+
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <c-container>
+        <c-row class="justify-content-center">
+            <c-col md="8">
+                <c-card-group>
+                    <c-card class="p-4">
+                        <c-card-body>
+                            <form cForm>
+                                <h1>Login</h1>
+                                <p class="text-medium-emphasis">Sign In to your account</p>
+                                <c-input-group class="mb-3">
+                                    <span cInputGroupText>
+                                        <svg [cIcon]="icons.cilUser"></svg>
+                                    </span>
+                                    <input #username autoComplete="username" cFormControl placeholder="Username" />
+                                </c-input-group>
+                                <c-input-group class="mb-4">
+                                    <span cInputGroupText>
+                                        <svg [cIcon]="icons.cilLockLocked"></svg>
+                                    </span>
+                                    <input autoComplete="current-password" cFormControl placeholder="Password"
+                                        type="password" #password />
+                                </c-input-group>
+                                <c-row>
+                                    <c-col xs="6">
+                                        <button cButton class="px-4" class="btn btn-primary"
+                                            (click)="login(username.value, password.value)">
+                                            Login
+                                        </button>
+                                        <div style="color: red;">{{error}}</div>
+                                    </c-col>
+                                </c-row>
+                            </form>
+                        </c-card-body>
+                    </c-card>
+                </c-card-group>
+            </c-col>
+        </c-row>
+    </c-container>
+</div>

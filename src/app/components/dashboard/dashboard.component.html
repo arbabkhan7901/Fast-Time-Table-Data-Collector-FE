@@ -1,0 +1,152 @@
+<div *ngIf="!showEdit && !showSchedular && !showReserve">
+    <app-widget-info></app-widget-info>
+    <c-row>
+        <c-col xs>
+            <c-card class="mb-4">
+                <c-card-header>Rooms</c-card-header>
+                <c-card-body>
+                    <table [hover]="true" [responsive]="true" [striped]="true" align="middle" cTable
+                        class="mb-0 border">
+                        <thead cTableColor="light">
+                            <tr>
+                                <th>Room Name</th>
+                                <th>Room Capacity</th>
+                                <th>Department</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let room of rooms; index as i">
+                                <td>
+                                    <div>{{ room.room_code }}</div>
+                                </td>
+                                <td>
+                                    <div>{{ room.room_capacity }}</div>
+                                </td>
+                                <td>
+                                    <div>{{ department }}</div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer;"
+                                            (click)="editRoom(room.room_id)"></i>
+                                        <i class="fa fa-trash" style="margin-left: 10px; cursor: pointer;"
+                                            aria-hidden="true" (click)="deleteRoom(room.room_id)"></i>
+                                        <i class="fa fa-calendar" style="margin-left: 10px; cursor: pointer;"
+                                            aria-hidden="true" (click)="reserveRoom(room.room_id)"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </c-card-body>
+            </c-card>
+        </c-col>
+    </c-row>
+    <app-widget-brand></app-widget-brand>
+</div>
+
+<div *ngIf="showEdit && !showSchedular && !showReserve">
+    <form>
+        <h1>Update Room in {{department | uppercase}} Department</h1>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Room Name</label>
+            <input #name type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter Room Name " value="{{editedRoom.room_code}}" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Room Capacity</label>
+            <input #capacity type="number" class="form-control" id="exampleInputPassword1"
+                placeholder="Enter Room Capacity" value="{{editedRoom.room_capacity}}" required>
+        </div>
+        <div style="margin-top: 10px;">
+            <button type="submit" class="btn btn-primary" (click)="updateRoom(name.value, capacity.value)">Update
+                Room</button>
+            <button type="button" class="btn btn-secondary" style="margin-left: 15px;"
+                (click)="cancel()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="showSchedular && !showEdit && !showReserve">
+    <h1>Reserve Room</h1>
+    <div *ngFor="let reserve of reserveRooms; index as i">
+        <form style="margin-top: 15px;">
+            <span class="form-group">
+                <label for="semester" style="margin-right: 5px;">Semester:</label>
+                <input type="text" id="semester" name="semester" value="{{reserve.semester}}" readonly>
+            </span>
+            <span class="form-group" style="margin-left: 10px;">
+                <label for="start_time" style="margin-right: 5px;">Start Time</label>
+                <input type="text" id="start_time" name="start_time" value="{{reserve.start_time}}" readonly>
+            </span>
+            <span class="form-group" style="margin-left: 10px;">
+                <label for="end_time" style="margin-right: 5px;">End Time</label>
+                <input type="text" id="end_time" name="end_time" value="{{reserve.end_time}}" readonly>
+            </span>
+            <span style="margin-left: 10px; cursor: pointer;">
+                <i class="fa fa-pencil" style="margin-left: 10px;" aria-hidden="true"
+                    (click)="updateSchedule(reserve.id)"></i>
+            </span>
+            <span style="margin-left: 10px; cursor: pointer;">
+                <i class="fa fa-trash" style="margin-left: 10px;" aria-hidden="true"
+                    (click)="deleteSchedule(reserve.id)"></i>
+            </span>
+        </form>
+    </div>
+    <form style="margin-top: 25px;">
+        <span class="form-group">
+            <label for="semester">Semester:</label>
+            <select name="semester" id="semester" #semester>
+                <option value="Fall 2022">Fall 2022</option>
+                <option value="Spring 2023">Spring 2023</option>
+            </select>
+        </span>
+        <span class="form-group" style="margin-left: 10px;">
+            <label for="start_time">Start Time</label>
+            <input type="time" id="start_time" name="start_time" #start_time>
+        </span>
+        <span class="form-group" style="margin-left: 10px;">
+            <label for="end_time">End Time</label>
+            <input type="time" id="end_time" name="end_time" #end_time>
+        </span>
+        <span style="margin-left: 10px;">
+            <button type="button" class="btn btn-primary"
+                (click)="scheduleRoom(semester.value, start_time.value, end_time.value)">Reserve
+                Room</button>
+        </span>
+        <span>
+            <button type="button" class="btn btn-secondary" style="margin-left: 15px;"
+                (click)="cancel()">Cancel</button>
+        </span>
+    </form>
+</div>
+
+<div *ngIf="!showEdit && !showSchedular && showReserve">
+    <form style="margin-top: 25px;">
+        <span class="form-group">
+            <label for="semester">Semester:</label>
+            <select [(ngModel)]="selectedSemester" name="semester" id="semester" #Esemester>
+                <option value="Fall 2022">Fall 2022</option>
+                <option value="Spring 2023">Spring 2023</option>
+            </select>
+        </span>
+        <span class="form-group" style="margin-left: 10px;">
+            <label for="start_time">Start Time</label>
+            <input type="time" id="start_time" name="start_time" #Estart_time value="{{reservedRoom.start_time}}">
+        </span>
+        <span class="form-group" style="margin-left: 10px;">
+            <label for="end_time">End Time</label>
+            <input type="time" id="end_time" name="end_time" #Eend_time value="{{reservedRoom.end_time}}">
+        </span>
+        <span style="margin-left: 10px;">
+            <button type="button" class="btn btn-primary"
+                (click)="editReserve(reservedRoom.id, Esemester.value, Estart_time.value, Eend_time.value)">Update Reservation
+                </button>
+        </span>
+        <span>
+            <button type="button" class="btn btn-secondary" style="margin-left: 15px;"
+                (click)="cancelReservation()">Cancel</button>
+        </span>
+    </form>
+</div>
